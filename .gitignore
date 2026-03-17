@@ -1,0 +1,9 @@
+node_modules
+.env
+.env.local
+dist
+.output
+.vinxi
+.start
+pnpm-lock.yaml
+**/routeTree.gen.ts

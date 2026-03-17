@@ -1,0 +1,186 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap");
+@import "tailwindcss";
+@source "./**/*.{ts,tsx}";
+@plugin "@tailwindcss/typography";
+
+@theme {
+	--font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+	--ink: #0f172a;
+	--ink-muted: #64748b;
+	--accent: #f59e0b;
+	--accent-deep: #d97706;
+	--bg-base: #f8fafc;
+	--card-bg: rgba(255, 255, 255, 0.85);
+	--card-bg-strong: rgba(255, 255, 255, 0.95);
+	--card-border: rgba(15, 23, 42, 0.12);
+	--badge-bg: rgba(255, 255, 255, 0.9);
+	--badge-border: rgba(245, 158, 11, 0.3);
+	--header-bg: rgba(255, 255, 255, 0.9);
+	--link-hover: rgba(15, 23, 42, 0.08);
+	--gradient-a: rgba(245, 158, 11, 0.15);
+	--gradient-b: rgba(217, 119, 6, 0.08);
+}
+
+:root[data-theme="dark"] {
+	--ink: #f1f5f9;
+	--ink-muted: #94a3b8;
+	--accent: #fbbf24;
+	--accent-deep: #fcd34d;
+	--bg-base: #0f172a;
+	--card-bg: rgba(30, 41, 59, 0.8);
+	--card-bg-strong: rgba(30, 41, 59, 0.95);
+	--card-border: rgba(248, 250, 252, 0.12);
+	--badge-bg: rgba(51, 65, 85, 0.9);
+	--badge-border: rgba(251, 191, 36, 0.35);
+	--header-bg: rgba(15, 23, 42, 0.9);
+	--link-hover: rgba(248, 250, 252, 0.06);
+	--gradient-a: rgba(251, 191, 36, 0.12);
+	--gradient-b: rgba(252, 211, 77, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme="light"]) {
+		--ink: #f1f5f9;
+		--ink-muted: #94a3b8;
+		--accent: #fbbf24;
+		--accent-deep: #fcd34d;
+		--bg-base: #0f172a;
+		--card-bg: rgba(30, 41, 59, 0.8);
+		--card-bg-strong: rgba(30, 41, 59, 0.95);
+		--card-border: rgba(248, 250, 252, 0.12);
+		--badge-bg: rgba(51, 65, 85, 0.9);
+		--badge-border: rgba(251, 191, 36, 0.35);
+		--header-bg: rgba(15, 23, 42, 0.9);
+		--link-hover: rgba(248, 250, 252, 0.06);
+		--gradient-a: rgba(251, 191, 36, 0.12);
+		--gradient-b: rgba(252, 211, 77, 0.06);
+	}
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+	min-height: 100%;
+}
+
+body {
+	margin: 0;
+	color: var(--ink);
+	font-family: var(--font-sans);
+	background:
+		radial-gradient(900px 500px at -5% -15%, var(--gradient-a), transparent 55%),
+		radial-gradient(
+			800px 500px at 105% -10%,
+			var(--gradient-b),
+			transparent 55%
+		),
+		linear-gradient(
+			180deg,
+			var(--bg-base) 0%,
+			color-mix(in oklab, var(--bg-base) 95%, white) 100%
+		);
+	overflow-x: hidden;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+a {
+	color: var(--accent-deep);
+	text-decoration-color: rgba(217, 119, 6, 0.4);
+	text-decoration-thickness: 1px;
+	text-underline-offset: 2px;
+}
+
+a:hover {
+	color: var(--accent);
+}
+
+.page-wrap {
+	width: min(1080px, calc(100% - 2rem));
+	margin-inline: auto;
+}
+
+.display-title {
+	font-family: "Source Serif 4", Georgia, serif;
+}
+
+.card {
+	border: 1px solid var(--card-border);
+	background: linear-gradient(165deg, var(--card-bg-strong), var(--card-bg));
+	box-shadow:
+		0 1px 0 rgba(255, 255, 255, 0.5) inset,
+		0 20px 40px rgba(15, 23, 42, 0.08);
+	backdrop-filter: blur(6px);
+}
+
+.card:hover {
+	transform: translateY(-2px);
+	border-color: color-mix(in oklab, var(--accent) 30%, var(--card-border));
+}
+
+.badge-text {
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 0.7rem;
+	color: var(--accent-deep);
+}
+
+.nav-link {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	color: var(--ink-muted);
+	text-decoration: none;
+}
+
+.nav-link::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: -6px;
+	width: 100%;
+	height: 2px;
+	transform: scaleX(0);
+	transform-origin: left;
+	background: linear-gradient(90deg, var(--accent), var(--accent-deep));
+	transition: transform 170ms ease;
+}
+
+.nav-link:hover,
+.nav-link.is-active {
+	color: var(--ink);
+}
+
+.nav-link:hover::after,
+.nav-link.is-active::after {
+	transform: scaleX(1);
+}
+
+@media (max-width: 640px) {
+	.nav-link::after {
+		bottom: -4px;
+	}
+}
+
+.rise-in {
+	animation: rise-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rise-in {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
